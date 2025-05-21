@@ -21,7 +21,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 36
-
+    ndkVersion "28.1.13356709"
     defaultConfig {
         namespace "com.hippo.quickjs.test.android"
         applicationId 'com.hippo.quickjs.test.android'
@@ -81,34 +81,32 @@ android {
         }
     }
 }
+//
+//task bundleTestAssets(type: Zip) {
+//    doFirst {
+//        delete "${projectDir}/testassets"
+//        file("${projectDir}/testassets").mkdirs()
+//    }
+//
+//    from "${rootProject.projectDir}/quickjs/quickjs"
+//    exclude '**/*.c', '**/*.h'
+//    archiveFileName =  "testassets.zip"
+//    destinationDirectory = file("${projectDir}/testassets")
+//
+//    doLast {
+//        File testassets = file("${projectDir}/testassets/testassets.zip")
+//        CRC32 crc32 = new CRC32()
+//        testassets.eachByte 4096, { bytes, size ->
+//            crc32.update(bytes, 0, size)
+//        }
+//        new File("${projectDir}/testassets/testassets-${crc32.getValue()}.crc32").createNewFile()
+//    }
+//}
 
-task bundleTestAssets(type: Zip) {
-    doFirst {
-        delete "${projectDir}/testassets"
-        file("${projectDir}/testassets").mkdirs()
-    }
-
-    from "${rootProject.projectDir}/quickjs/quickjs"
-    exclude '**/*.c', '**/*.h'
-    archiveFileName =  "testassets.zip"
-    destinationDirectory = file("${projectDir}/testassets")
-
-    doLast {
-        File testassets = file("${projectDir}/testassets/testassets.zip")
-        CRC32 crc32 = new CRC32()
-        testassets.eachByte 4096, { bytes, size ->
-            crc32.update(bytes, 0, size)
-        }
-        new File("${projectDir}/testassets/testassets-${crc32.getValue()}.crc32").createNewFile()
-    }
-}
-
-project.afterEvaluate {
-    lintVitalAnalyzeRelease.dependsOn 'bundleTestAssets'
-    generateReleaseLintVitalReportModel.dependsOn 'bundleTestAssets'
-    generateDebugAssets.dependsOn 'bundleTestAssets'
-    generateReleaseAssets.dependsOn 'bundleTestAssets'
-}
+//project.afterEvaluate {
+//    generateDebugAssets.dependsOn 'bundleTestAssets'
+//    generateReleaseAssets.dependsOn 'bundleTestAssets'
+//}
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21"
