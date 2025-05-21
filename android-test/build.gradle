@@ -104,6 +104,8 @@ task bundleTestAssets(type: Zip) {
 }
 
 project.afterEvaluate {
+    lintVitalAnalyzeRelease.dependsOn 'bundleTestAssets'
+    generateReleaseLintVitalReportModel.dependsOn 'bundleTestAssets'
     generateDebugAssets.dependsOn 'bundleTestAssets'
     generateReleaseAssets.dependsOn 'bundleTestAssets'
 }
