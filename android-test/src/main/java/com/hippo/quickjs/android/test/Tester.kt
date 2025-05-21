@@ -26,6 +26,7 @@ import net.lingala.zip4j.core.ZipFile
 import java.io.*
 import java.lang.ref.WeakReference
 
+
 class Tester(
   private val context: Context
 ) {
@@ -109,7 +110,9 @@ class Tester(
   }
 
   private fun ensureExecutable() {
-    ReLinker.loadLibrary(context, "qjs")
+    ReLinker
+      .log({ message -> printer.print(message) })
+      .loadLibrary(context, "qjs")
   }
 
   private fun runTest(name: String, executable: String, parameter: String) {

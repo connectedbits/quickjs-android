@@ -20,12 +20,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 36
 
     defaultConfig {
+        namespace "com.hippo.quickjs.test.android"
         applicationId 'com.hippo.quickjs.test.android'
-        minSdkVersion 18
-        targetSdkVersion 31
+        minSdkVersion 26
+        targetSdkVersion 36
         versionCode 1
         versionName '1.0'
         externalNativeBuild {
@@ -37,6 +38,14 @@ android {
 
     sourceSets {
         main.assets.srcDirs += 'testassets'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
     }
 
     def hasReleaseKey = rootProject.file('release.keystore').exists()
@@ -81,8 +90,8 @@ task bundleTestAssets(type: Zip) {
 
     from "${rootProject.projectDir}/quickjs/quickjs"
     exclude '**/*.c', '**/*.h'
-    archiveName "testassets.zip"
-    destinationDir file("${projectDir}/testassets")
+    archiveFileName =  "testassets.zip"
+    destinationDirectory = file("${projectDir}/testassets")
 
     doLast {
         File testassets = file("${projectDir}/testassets/testassets.zip")
@@ -100,10 +109,10 @@ project.afterEvaluate {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
+    implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'net.lingala.zip4j:zip4j:1.3.2'
-    implementation 'com.getkeepsafe.relinker:relinker:1.3.1'
+    implementation 'com.getkeepsafe.relinker:relinker:1.4.4'
 }

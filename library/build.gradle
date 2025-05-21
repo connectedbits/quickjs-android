@@ -17,13 +17,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 36
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 31
+        namespace "com.hippo.quickjs.android"
+        minSdkVersion 23
+        targetSdkVersion 36
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-        externalNativeBuild {
+        externalNativeBuild {/**/
             cmake {
                 targets 'quickjs-android'
                 arguments '-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON'
@@ -32,8 +33,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     sourceSets {
@@ -55,9 +56,9 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.3.0'
-    androidTestImplementation 'androidx.test:core:1.4.0'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
+    implementation 'androidx.annotation:annotation:1.9.1'
+    androidTestImplementation 'androidx.test:core:1.6.1'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'org.assertj:assertj-core:3.13.2'
 }

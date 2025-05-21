@@ -14,5 +14,27 @@
  * limitations under the License.
  */
 
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        //noinspection JcenterRepositoryObsolete
+        jcenter()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        //noinspection JcenterRepositoryObsolete
+        jcenter()
+    }
+}
+
+
 include ':android-test'
 include ':library'
