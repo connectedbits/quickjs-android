@@ -32,6 +32,12 @@ android {
         }
     }
 
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -53,7 +59,25 @@ android {
             path 'CMakeLists.txt'
         }
     }
+
 }
+
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = "com.hippo.quickjs.android"
+            artifactId = "quickjs-android"
+            version = "1.0"
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+
+    }
+}
+
 
 dependencies {
     implementation 'androidx.annotation:annotation:1.9.1'
@@ -62,3 +86,4 @@ dependencies {
     androidTestImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'org.assertj:assertj-core:3.13.2'
 }
+
